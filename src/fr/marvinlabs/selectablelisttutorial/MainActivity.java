@@ -7,11 +7,15 @@ import java.util.List;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 import fr.marvinlabs.selectablelisttutorial.pojo.Item;
+import fr.marvinlabs.widget.InertCheckBox;
 
 /**
  * Our main activity, show a list of items and allows to select some of them
@@ -20,6 +24,8 @@ import fr.marvinlabs.selectablelisttutorial.pojo.Item;
  */
 public class MainActivity extends ListActivity {
 
+	protected static final String TAG = "MainActivity";
+	
 	private List<Item> data;
 	private ListView listView;
 	private ItemListAdapter adapter;
@@ -59,6 +65,30 @@ public class MainActivity extends ListActivity {
 		// --
 		listView = getListView();
 		listView.setItemsCanFocus(false);
+		
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Log.d(TAG, "onItemClick()");
+				InertCheckBox checkBox = (InertCheckBox) arg1.findViewById(R.id.itemCheckBox);
+				if (checkBox.isClicked()) {
+					Log.d(TAG, "CheckBox clicked");
+					if (listView.getCheckedItemPositions().indexOfValue(true) < 0) {
+						Log.d(TAG, "Hide buttons");
+						findViewById(R.id.buttonLayout).setVisibility(View.GONE);
+					} else {
+						Log.d(TAG, "Show buttons");
+						findViewById(R.id.buttonLayout).setVisibility(View.VISIBLE);
+					}
+				} else {
+					Log.d(TAG, "Other widget clicked");
+					clearSelection();
+				}
+			}
+			
+		});
 	}
 
 	/**

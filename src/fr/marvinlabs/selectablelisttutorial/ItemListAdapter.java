@@ -6,11 +6,14 @@ package fr.marvinlabs.selectablelisttutorial;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import fr.marvinlabs.selectablelisttutorial.pojo.Item;
 
 /**
@@ -20,6 +23,8 @@ import fr.marvinlabs.selectablelisttutorial.pojo.Item;
  */
 public class ItemListAdapter extends ArrayAdapter<Item> {
 
+	protected static final String TAG = "ItemListAdapter";
+	
 	private LayoutInflater li;
 
 	/**
@@ -63,6 +68,15 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
 		if (captionView != null) {
 			captionView.setText(item.getCaption());
 		}
+		
+		CompoundButton checkBox = (CompoundButton) v.findViewById(R.id.itemCheckBox);
+		checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//				Log.d(TAG, "onCheckedChanged()");
+			}
+		});
 
 		return v;
 	}

@@ -8,6 +8,7 @@
 		android:orientation="horizontal"
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
+		android:visibility="gone"
 		android:layout_alignParentBottom="true" >
 		
 		<Button android:id="@+id/toggleChoiceModeButton"
@@ -44,6 +45,6 @@
 		android:layout_marginTop="5dp"
 		android:layout_marginBottom="5dp"
 		android:layout_marginLeft="5dp" 
-		android:choiceMode="singleChoice" />
+		android:choiceMode="multipleChoice" />
 		
 </RelativeLayout>

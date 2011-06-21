@@ -2,6 +2,7 @@ package fr.marvinlabs.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.CheckBox;
@@ -10,6 +11,9 @@ import android.widget.CheckBox;
  * CheckBox that does not react to any user event in order to let the container handle them.
  */
 public class InertCheckBox extends CheckBox {
+
+	private static final String TAG = "InertCheckBox";
+	private boolean clicked;
 
 	// Provide the same constructors as the superclass
 	public InertCheckBox(Context context, AttributeSet attrs, int defStyle) {
@@ -29,6 +33,16 @@ public class InertCheckBox extends CheckBox {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		// Make the checkbox not respond to any user event
+		Log.d(TAG, "onTouchEvent()");
+		this.clicked = true;
+		return false;
+	}
+	
+	public boolean isClicked() {
+		if (clicked) {
+			clicked = false;
+			return true;
+		}
 		return false;
 	}
 
